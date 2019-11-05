@@ -1,0 +1,31 @@
+#forgotpass-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#forgotpass-form {
+  width: 40%;
+  height: auto;
+  padding: 20px;
+  margin: 200px;
+  background-color: #cde4fe;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+#options-label {
+  color: black;
+  margin-bottom: 7px;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.recoverButtons {
+  margin: 5px 0px 5px 0px;
+  text-transform: capitalize;
+}

@@ -1,0 +1,100 @@
+#publicview-container {
+  display: grid;
+  grid-template-rows: calc(100vh - 80px) 1fr;
+  grid-template-areas: "header" "body";
+}
+
+div#content-container {
+  display: grid;
+  grid-area: body;
+  grid-template-areas: "search";
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr;
+}
+
+#splash-page {
+  grid-area: header;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+#splash-image {
+  width: 100vw;
+  height: auto;
+  padding-bottom: 200px;
+}
+
+#image-text {
+  position: absolute;
+  color: white;
+  top: 50vh;
+  left: 50vw;
+}
+
+#search {
+  width: 90%;
+  grid-area: search;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-area: search;
+  grid-column-start: col-start 2;
+}
+
+.header {
+  grid-area: header;
+  width: 100%;
+}
+
+.price-bed-bath {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.listing-cards {
+  width: 175px;
+  height: 195px;
+  margin: 7px;
+}
+
+#address {
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.search-filter {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.react-search-field {
+  margin-bottom: 20px;
+}
+
+.star-filter {
+  align-self: flex-start;
+  margin-bottom: 7px;
+}
+
+.searchLabels {
+  color: black;
+}

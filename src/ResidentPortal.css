@@ -1,0 +1,371 @@
+.residentportal-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "dues service rightside";
+  margin: 10px 10px 0px 10px;
+  grid-gap: 10px;
+}
+
+.dues {
+  padding-left: 10px;
+  grid-area: dues;
+
+  background-color: #fff;
+}
+
+.service {
+  padding-left: 10px;
+  grid-area: service;
+
+  background-color: #fff;
+}
+
+.rightside1 {
+  grid-area: rightside;
+
+  width: calc(100% - 20px);
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 180px 1fr;
+  grid-template-areas:
+    "contact"
+    "ratemyproperty";
+  grid-gap: 10px;
+}
+
+/* Containers for the MyStatement section */
+.mystatement-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  color: black;
+  background-color: #cde4fe;
+  border-radius: 10px;
+}
+
+.amountdue {
+  color: black;
+  text-align: center;
+  margin: 0px 0px 10px 0px;
+}
+
+.buttons {
+  text-align: center;
+
+  display: grid;
+  grid-template-columns: 100%;
+  padding: 10px;
+  grid-gap: 10px;
+}
+
+.recentstatements {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: calc(100% - 20px);
+  padding: 0px 10px 0px 10px;
+}
+
+.recentstatements-item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "recentstatements-item-date recentstatements-item-amount recentstatements-item-button";
+  width: 100%;
+  grid-gap: 20px;
+  margin-bottom: 10px;
+}
+
+.recentstatements-item-date {
+  grid-area: recentstatements-item-date;
+  line-height: 35px;
+}
+
+.recentstatements-item-amount {
+  grid-area: recentstatements-item-amount;
+  line-height: 35px;
+  text-align: right;
+}
+
+.recentstatements-item-button {
+  grid-area: recentstatements-item-button;
+  width: 100%;
+  text-align: center;
+}
+
+/* Style for the buttons */
+
+.primary-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 10px;
+}
+
+.secondary-button {
+  background-color: #5485bcff;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+}
+
+.popup {
+  position: fixed;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow-y: scroll;
+}
+.popup-panel {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 10%;
+  min-height: 100px;
+  height: auto;
+  margin: auto;
+  padding: 10px;
+  z-index: 10000;
+  background-color: white;
+}
+
+.popup-header {
+  display: grid;
+
+  width: 100%;
+  grid-template-columns: 1fr 100px;
+  grid-template-areas: "title close";
+  margin-bottom: 20px;
+}
+
+.popup-header-title {
+  grid-area: title;
+  text-align: left;
+}
+
+.popup-header-close {
+  grid-area: close;
+  background-color: grey;
+
+  border: none;
+}
+
+.makeapayment-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  text-align: left;
+}
+
+/* Style for charge items */
+.charges {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: calc(100% - 20px);
+  padding: 10px;
+}
+
+.charges-item {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: "charges-item-date charges-item-reason charges-item-amount";
+  width: 100%;
+  grid-gap: 20px;
+  line-height: 35px;
+  text-align: left;
+}
+
+.charges-item-date {
+  grid-area: charges-item-date;
+}
+
+.charges-item-amount {
+  grid-area: charges-item-amount;
+  text-align: right;
+}
+
+/* Style for the payment information */
+.paymentinfo {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "paymentinfo-billing discounts";
+
+  grid-column: 100%;
+  grid-gap: 10px;
+  padding: 0px 10px 0px 10px;
+}
+
+.paymentinfo-billing {
+  grid-area: paymentinfo-billing;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.paymentinfo-card {
+  width: 100%;
+}
+
+.paymentinfo-address {
+  grid-area: paymentinfo-address;
+
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 30px);
+  grid-gap: 5px;
+  grid-template-areas:
+    "firstname lastname"
+    "addressline1 addressline1"
+    "addressline2 addressline2"
+    "city state";
+  padding: 10px;
+}
+
+.paymentinfo-firstname {
+  grid-area: firstname;
+  border-radius: 5px;
+}
+
+.paymentinfo-lastname {
+  grid-area: lastname;
+  border-radius: 5px;
+}
+
+.paymentinfo-addressline1 {
+  grid-area: addressline1;
+  border-radius: 5px;
+}
+
+.paymentinfo-addressline2 {
+  grid-area: addressline2;
+  border-radius: 5px;
+}
+
+.paymentinfo-city {
+  grid-area: city;
+  border-radius: 5px;
+}
+
+.paymentinfo-state {
+  grid-area: state;
+  border-radius: 5px;
+}
+
+.tickets {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: calc(100% - 20px);
+  padding: 0px 10px 0px 10px;
+}
+
+.tickets-item {
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr 1fr;
+  grid-template-areas: "tickets-item-date tickets-item-title tickets-item-status tickets-item-button";
+  width: 100%;
+  grid-gap: 20px;
+  margin-bottom: 10px;
+}
+
+.tickets-item-date {
+  grid-area: tickets-item-date;
+  line-height: 35px;
+}
+
+.tickets-item-title {
+  grid-area: tickets-item-title;
+  line-height: 35px;
+}
+
+.tickets-item-status {
+  grid-area: tickets-item-status;
+  line-height: 35px;
+  text-align: center;
+}
+
+.tickets-item-button {
+  grid-area: tickets-item-button;
+  width: 100%;
+  text-align: center;
+}
+
+/**/
+
+.contact1 {
+  grid-area: contact;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  overflow: auto;
+  background-color: #cde4fe;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+}
+
+.contact-display {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "portrait contact";
+  margin-bottom: 10px;
+}
+
+.contact-display-portrait {
+  grid-area: portrait;
+
+  vertical-align: middle;
+
+  width: 100px;
+}
+
+.contact-display {
+  grid-area: contact;
+}
+
+.ratemyproperty {
+  grid-area: ratemyproperty;
+
+  display: flex;
+  flex-wrap: wrap;
+  color: black;
+  width: 100%;
+  padding: 0px 10px 0px 10px;
+  background-color: #cde4fe;
+  border-radius: 10px;
+}
+
+/* Style for the Rate My Property component */
+.rate-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  padding: 0px 0px 10px 0px;
+}
+
+.rate-submit {
+  background-color: orange;
+  color: white;
+  font-size: 18px;
+  border: none;
+  padding: 10px 10px;
+  width: 100%;
+}
+
+/* Style for the WIP (Pardon Our Dust) messages */
+.wip-parent {
+  text-align: center;
+}
+
+.wip {
+  display: inline-block;
+}

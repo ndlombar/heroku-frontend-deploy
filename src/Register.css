@@ -1,0 +1,61 @@
+#register-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#register-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: auto;
+  background-color: #cde4fe;
+  padding: 20px;
+  margin: 30px;
+  border-radius: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+.form-headers {
+  padding-bottom: 30px;
+  color: black;
+  font-weight: bold;
+}
+
+#next-button {
+  text-transform: capitalize;
+  width: 80%;
+}
+
+.MuiFormControl-root.MuiTextField-root.registerInputs {
+  margin: 10px;
+  width: 80%;
+}
+
+#security-questions {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: auto;
+  padding: 20px;
+  margin: 30px;
+  border-radius: 10px;
+  background-color: #cde4fe;
+  align-items: center;
+}
+
+.MuiFormControl-root.dropdowns {
+  width: 100%;
+  margin: 12px 0px 12px 0px;
+}
+
+div.MuiFormControl-root.MuiTextField-root.answer-box {
+  margin: 12px 0px 12px 0px;
+}
+
+#register-button {
+  text-transform: capitalize;
+}

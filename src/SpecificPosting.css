@@ -1,0 +1,144 @@
+/* Specific-Posting Cards */
+.specificposting-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "leftside rightside";
+  margin: 0px 10px 0px 10px;
+  grid-gap: 10px;
+}
+
+.leftside {
+  grid-area: leftside;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rightside {
+  grid-area: rightside;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "gallery"
+    "bottom";
+  margin: 10px 0px 10px 0px;
+}
+
+.bottom {
+  grid-area: bottom;
+  margin: 10px 0px 0px 0px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "map review";
+  grid-gap: 10px;
+}
+
+.aptinfo {
+  width: 100%;
+  overflow: auto;
+
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+.contact {
+  width: 100%;
+  overflow: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+.contact-display {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "portrait contact";
+  margin-bottom: 10px;
+}
+
+.contact-display-portrait {
+  grid-area: portrait;
+
+  vertical-align: middle;
+
+  width: 100px;
+}
+
+.contact-display {
+  grid-area: contact;
+}
+
+.visitation {
+  width: 100%;
+  overflow: auto;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+.gallery {
+  grid-area: gallery;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+.map {
+  grid-area: map;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+.review {
+  grid-area: review;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #cde4fe;
+  color: black;
+}
+
+/* style for individual reviews*/
+.review-item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 40px 1fr;
+  grid-template-areas:
+    "r-rating r-info"
+    "r-review r-review";
+  margin: 10px 0px 20px 0px;
+
+  width: 100%;
+}
+
+.review-item-rating {
+  grid-area: r-rating;
+}
+
+.review-item-star {
+  width: 25px;
+  height: 25px;
+}
+
+.review-item-info {
+  grid-area: r-info;
+}
+
+.review-item-review {
+  grid-area: r-review;
+}

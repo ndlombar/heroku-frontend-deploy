@@ -1,0 +1,88 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #0559ba;
+  height: 80px;
+}
+
+.logo {
+  max-height: 90px;
+  width: auto;
+}
+
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 45px;
+  color: white;
+}
+
+h1:hover {
+  cursor: pointer;
+}
+
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 19px;
+  margin: 0px 15px 0px 15px;
+}
+
+h2:hover {
+  cursor: pointer;
+}
+
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-display: bold;
+}
+
+h4 {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+}
+
+#home-logo {
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  padding-bottom: 25px;
+}
+
+#links {
+  width: 100%;
+  display: flex;
+  flex-direction: wrap;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+.navitemset {
+  display: flex;
+  overflow: hidden;
+  height: 80px;
+}
+
+.navitem {
+  margin: 0px 10px 0px 10px;
+  float: left;
+  display: inline;
+}
+
+.navitem:hover {
+  cursor: pointer;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+.headerLabels {
+  color: white;
+}

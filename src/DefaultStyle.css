@@ -1,0 +1,52 @@
+/*dashboard layout utilizing code by 
+https://medium.com/better-programming/build-a-responsive-modern-dashboard-layout-with-css-grid-and-flexbox-bd343776a97e
+https://www.quackit.com/css/grid/tutorial/create_a_nested_grid.cfm
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Lalezar|Montserrat|Roboto&display=swap");
+
+/* overall style modifier */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+/* Primary page for the content */
+.primary-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 0px;
+  grid-template-areas:
+    "body"
+    "footer";
+}
+
+.body {
+  grid-area: body;
+  background-color: white;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #0559ba;
+}
+
+/* Header Bar */
+.logo {
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  margin: 5px 3px 0px 0px;
+  transform: translate(0px, 2.5px);
+  float: left;
+}
+
+.title {
+  margin: 10px 0px 0px 0px;
+  padding: 0px;
+  float: left;
+  overflow: hidden;
+}
