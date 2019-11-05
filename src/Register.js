@@ -73,10 +73,10 @@ class Register extends Component {
 
   componentDidUpdate() {
     if (this.state.answer3 != "") {
-      Axios.post("http://localhost:8080/register", {
+      Axios.post("https://whispering-fortress-23669.herokuapp.com/register", {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        password: this.hashCode(this.state.password),
+        password: this.state.password,
         email: this.state.email,
         phone: this.state.phone,
         securityQuestion1: this.state.securityQuestion1,
@@ -89,10 +89,10 @@ class Register extends Component {
         response => {
           console.log(response);
           if (response.data.success) {
-            window.location.replace("http://localhost:3000/login");
+            window.location.replace("https://rent-mate.herokuapp.com/login");
           } else {
             alert("That email is already registered.");
-            window.location.replace("http://localhost:3000/register");
+            window.location.replace("https://rent-mate.herokuapp.com/register");
           }
         },
         error => {

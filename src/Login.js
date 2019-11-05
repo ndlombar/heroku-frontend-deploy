@@ -3,6 +3,7 @@ import "./Login.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import GoogleLogin from "react-google-login";
+import { ToastsContainer, ToastsStore } from "react-toasts";
 import Axios from "axios";
 
 const failureGoogle = response => {
@@ -48,35 +49,31 @@ class Login extends Component {
   }
 
   send() {
-    if (this.state.password === "test") {
-      localStorage.setItem("loggedIn", true);
-      localStorage.setItem("email", this.state.email);
-      window.location.replace("http://localhost:3000/");
+    if (
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)
+    ) {
+      Axios.post(
+        "https://whispering-fortress-23669.herokuapp.com/specificposting/login",
+        {
+          email: this.state.email,
+          password: this.state.password
+        }
+      ).then(
+        response => {
+          console.log(response);
+          if (response.data.success) {
+            localStorage.setItem("loggedIn", true);
+            localStorage.setItem("email", this.state.email);
+            window.location.replace("http://rent-mate.herokuapp.com/");
+          }
+        },
+        error => {
+          alert("Username or password is incorrect.");
+        }
+      );
     } else {
-      alert("Invalid username or password.");
+      alert("Please use a valid email address when logging in.");
     }
-    // if (
-    //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)
-    // ) {
-    //   Axios.post("http://localhost:8080/login", {
-    //     email: this.state.email,
-    //     password: this.hashCode(this.state.password)
-    //   }).then(
-    //     response => {
-    //       console.log(response);
-    //       if (response.data.success) {
-    //         localStorage.setItem("loggedIn", true);
-    //         localStorage.setItem("email", this.state.email);
-    //         window.location.replace("http://localhost:3000/");
-    //       }
-    //     },
-    //     error => {
-    //       alert("Username or password is incorrect.");
-    //     }
-    //   );
-    // } else {
-    //   alert("Please use a valid email address when logging in.");
-    // }
   }
 
   render() {

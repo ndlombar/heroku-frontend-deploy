@@ -12,11 +12,13 @@ class ForgotPass extends Component {
   }
 
   securityQuestions() {
-    window.location.replace("http://localhost:3000/securityquestions");
+    window.location.replace(
+      "https://rent-mate.herokuapp.com/securityquestions"
+    );
   }
 
   OTP() {
-    window.location.replace("http://localhost:3000/onetimepassword");
+    window.location.replace("https://rent-mate.herokuapp.com/onetimepassword");
   }
 
   render() {

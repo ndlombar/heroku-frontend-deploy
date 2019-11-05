@@ -25,31 +25,33 @@ class App extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loggedIn")) {
-      return (
-        <BrowserRouter>
-          <LoggedInHeaderBar />
-          <Route exact={true} path="/" component={PublicView} />
-          <Route path="/SpecificPosting" component={SpecificPosting} />
-          <Route path="/mydashboard" component={ResidentPortal} />
-        </BrowserRouter>
-      );
-    } else {
-      console.log("is false");
-      return (
-        <BrowserRouter>
-          <NotLoggedInHeaderBar />
-          <Route exact={true} path="/" component={PublicView} />
-          <Route path="/SpecificPosting" component={SpecificPosting} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/forgot" component={ForgotPass} />
-          <Route path="/securityquestions" component={SecurityQuestions} />
-          <Route path="/onetimepassword" component={OneTimePassword} />
-          <Route path="/resetpassword" component={ResetPassword} />
-        </BrowserRouter>
-      );
-    }
+    return <SpecificPosting />; //<ResidentPortal />;
+    //   if (localStorage.getItem("loggedIn")) {
+    //     return (
+    //       <BrowserRouter>
+    //         <LoggedInHeaderBar />
+    //         <Route exact={true} path="/" component={PublicView} />
+    //         <Route path="/SpecificPosting" component={SpecificPosting} />
+    //         <Route path="/mydashboard" component={ResidentPortal} />
+    //       </BrowserRouter>
+    //     );
+    //   } else {
+    //     console.log("is false");
+    //     return (
+    //       <BrowserRouter>
+    //         <NotLoggedInHeaderBar />
+    //         <Route exact={true} path="/" component={PublicView} />
+    //         <Route path="/SpecificPosting" component={SpecificPosting} />
+    //         <Route path="/login" component={Login} />
+    //         <Route path="/register" component={Register} />
+    //         <Route path="/forgot" component={ForgotPass} />
+    //         <Route path="/securityquestions" component={SecurityQuestions} />
+    //         <Route path="/onetimepassword" component={OneTimePassword} />
+    //         <Route path="/resetpassword" component={ResetPassword} />
+    //       </BrowserRouter>
+    //     );
+    //   }
+    // }
   }
 }
 export default App;

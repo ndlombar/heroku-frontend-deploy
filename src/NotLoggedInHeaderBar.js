@@ -14,15 +14,15 @@ class NotLoggedInHeaderBar extends Component {
   }
 
   returnHome() {
-    window.location.replace("http://localhost:3000");
+    window.location.replace("https://rent-mate.herokuapp.com");
   }
 
   loginClick() {
-    window.location.replace("http://localhost:3000/login");
+    window.location.replace("https://rent-mate.herokuapp.com/login");
   }
 
   registerClick() {
-    window.location.replace("http://localhost:3000/register");
+    window.location.replace("https://rent-mate.herokuapp.com/register");
   }
 
   render() {

@@ -57,16 +57,17 @@ class ResetPassword extends Component {
       //alert("success!");
       console.log(this.state);
 
-      Axios.post("http://localhost:8080/resetPassword", {
-        email: this.state.email, 
-        password: this.hashCode(this.state.newPassword)
-      }).then(
+      Axios.post(
+        "https://whispering-fortress-23669.herokuapp.com/resetPassword",
+        {
+          email: this.state.email,
+          password: this.state.newPassword
+        }
+      ).then(
         response => {
           console.log(response);
           if (response.data.success) {
-            window.location.replace(
-              `http://localhost:3000/login`
-            );
+            window.location.replace(`https://rent-mate.herokuapp.com/login`);
           } else {
             alert("That is not a registered email.");
           }
@@ -75,7 +76,6 @@ class ResetPassword extends Component {
           console.log(error);
         }
       );
-
     }
   }
 

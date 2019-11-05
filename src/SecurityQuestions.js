@@ -31,7 +31,7 @@ class SecurityQuestions extends Component {
   }
 
   handleAnswer() {
-    if (this.state.currentAnswer == this.state.answer) {
+    if (this.state.currentAnswer === this.state.answer) {
       this.setState({
         currentQuestion: this.state.securityQuestions[this.state.index]
       });
@@ -41,9 +41,8 @@ class SecurityQuestions extends Component {
       this.setState({ index: this.state.index + 1 });
       this.setState({ answer: "" });
     } else {
-      this.setState({ test: "" });
+      alert("Incorrect");
     }
-    console.log(this.state);
   }
 
   saveAnswer(event) {
@@ -51,30 +50,34 @@ class SecurityQuestions extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.securityQuestions.length > 0) {
-      let node = (
-        <div className="recoverForm">
-          <Typography className="emailLabel">
-            {this.state.currentQuestion}
-          </Typography>
-          <TextField
-            variant="outlined"
-            placeholder="Answer here"
-            onChange={this.saveAnswer}
-            className="email-input"
-            type="password"
-            value={this.state.answer}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.handleAnswer}
-          >
-            Recover
-          </Button>
-        </div>
-      );
-      ReactDOM.render(node, document.getElementById("recover-page"));
+    if (this.state.index === 4) {
+      window.location.replace("https://rent-mate.herokuapp.com/resetpassword");
+    } else {
+      if (this.state.securityQuestions.length > 0) {
+        let node = (
+          <div className="recoverForm">
+            <Typography className="emailLabel">
+              {this.state.currentQuestion}
+            </Typography>
+            <TextField
+              variant="outlined"
+              placeholder="Answer here"
+              onChange={this.saveAnswer}
+              className="email-input"
+              type="password"
+              value={this.state.answer}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.handleAnswer}
+            >
+              Recover
+            </Button>
+          </div>
+        );
+        ReactDOM.render(node, document.getElementById("recover-page"));
+      }
     }
   }
 
@@ -86,9 +89,12 @@ class SecurityQuestions extends Component {
     ) {
       alert("Please enter a valid email address.");
     } else {
-      Axios.get("http://localhost:8080/forgotPassword", {
-        params: { email: this.state.userEmail }
-      }).then(
+      Axios.get(
+        "https://whispering-fortress-23669.herokuapp.com/forgotPassword",
+        {
+          params: { email: this.state.userEmail }
+        }
+      ).then(
         response => {
           console.log(response);
           if (response.data.success) {

@@ -4,6 +4,7 @@ import CreditCardInput from 'react-credit-card-input';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {InputLabel, FormHelperText, FormControl, Select} from '@material-ui/core';
+import {ToastsContainer, ToastsStore} from 'react-toasts';
 import jsPDF from "jspdf";
 import "./ResidentPortal.css";
 import "./DefaultStyle.css";
@@ -192,17 +193,20 @@ class ResidentPortal extends Component {
     return (
     <div class="primary-container">
             <main class="body">
+			<ToastsContainer store={ToastsStore}></ToastsContainer>
                 <div class="residentportal-container">
                     <div class="dues">
-						<Dues
+					<Dues
 							statements={this.state.user.statements}
 							dues={this.state.user.dues}
 							coupons={this.state.user.coupons}
+							addStatement={this.addPaymentStatement.bind(this)} 
 							/>
                     </div>
                     <div class="service">
-						<ServiceRequests
+					<ServiceRequests
 							tickets={this.state.user.tickets}
+							addTicket={this.addServiceTicket.bind(this)}
 						/>
                     </div>
                     <div class="rightside1">
@@ -236,6 +240,33 @@ class ResidentPortal extends Component {
   
     return month + '/' + day + '/' + year;
 }
+addPaymentStatement(value) {
+	this.state.user.dues = [];
+
+	var date = new Date();
+	var out_date =     ("00" + (date.getMonth() + 1)).slice(-2) + "/" + 
+	("00" + date.getDate()).slice(-2) + "/" + 
+	date.getFullYear() + " " + 
+	("00" + date.getHours()).slice(-2) + ":" + 
+	("00" + date.getMinutes()).slice(-2) + ":" + 
+	("00" + date.getSeconds()).slice(-2)
+
+	this.state.user.statements.unshift(
+		{date: out_date, amount: value}
+	);
+
+	//MODIFIED
+	this.forceUpdate();
+}
+
+addServiceTicket(value) {
+	this.state.user.tickets.unshift(
+		value
+	);
+
+	//MODIFIED
+	this.forceUpdate();
+}					
 }
 
 
@@ -312,7 +343,9 @@ class Dues extends Component {
 			<div class="amountdue">
 				<h3 >Current Balance:</h3>
 				<h3>{'$' + this.getTotalDues(dues)}</h3>
-				Due by: {this.getMinimumDate(dues)}
+				{dues.length === 0 ? "" :
+					"Due by: " + this.getMinimumDate(dues)
+				}
 			</div>
 			<div class="buttons">
 				<button
@@ -325,7 +358,8 @@ class Dues extends Component {
 					<MakeAPayment
 							dues={dues}
 							coupons={coupons}
-							closePopup={this.togglePopupMakeAPayment.bind(this)}  
+							closePopup={this.togglePopupMakeAPayment.bind(this)}
+							addStatement={this.props.addStatement.bind(this)} 
 					/>  
 					: null  
 				}
@@ -423,13 +457,13 @@ class MakeAPayment extends React.Component {
 			this.state.cardCvc === '' ||
 			this.state.billFirstName === '' || this.state.billLastName === '' ||
 			this.state.billAddrLine1 === '' ||
-			this.state.city === '' || this.state.state === '')
+			this.state.billCity === '' || this.state.billState === '')
 		{
-			alert('WARNING: Invalid Payment Information.\n\nPlease ensure all information is provided.');
+			ToastsStore.error('WARNING: Invalid Payment Information.\n\nPlease ensure all information is provided.');
 			return;
 		}
 		
-		alert('cardinfo:'
+		ToastsStore.success('cardinfo:'
 			+ '\n-cardNumber: ' + this.state.cardNumber
 			+ '\n-expiry: ' + this.state.cardExpiry
 			+ '\n-cvc: ' + this.state.cardCvc
@@ -471,11 +505,13 @@ class MakeAPayment extends React.Component {
 			total += currCharge;
 		}
 
-		alert('total: ' + total.toFixed(2));
-
 		//TODO: Backend operation on successful payment
 
-		alert('Payment successfully made!');
+		ToastsStore.success('Payment successfully made!');
+		
+		//MODIFIED
+		{this.props.addStatement('$' + total.toFixed(2).substring(0,1) + ',' + total.toFixed(2).substring(1))}
+
 		this.props.closePopup()
 		event.preventDefault();
 	  }
@@ -528,7 +564,9 @@ class MakeAPayment extends React.Component {
 						<div class="amountdue">
 							<h3>Current Balance:</h3>
 							<h3>{this.getTotalDues(dues)}</h3>
-							Due by: {this.getMinimumDate(dues)}
+							{dues.length === 0 ? "" :
+								"Due by: " + this.getMinimumDate(dues)
+							}
 						</div>
 						<h4>Charges</h4>
 						<div class="charges">
@@ -678,18 +716,18 @@ class SetUpRecurringPayment extends React.Component {
 		});
 	  }
 	
-	handleSetUpRecurringPayment(event) {
+	  handleSetUpRecurringPayment(event) {
 		if(this.state.cardNumber === '' || this.state.cardExpiry === '' ||
 			this.state.cardCvc === '' ||
 			this.state.billFirstName === '' || this.state.billLastName === '' ||
 			this.state.billAddrLine1 === '' ||
-			this.state.city === '' || this.state.state === '')
+			this.state.billCity === '' || this.state.billState === '')
 		{
-			alert('WARNING: Invalid Payment Information.\n\nPlease ensure all information is provided.');
+			ToastsStore.error('WARNING: Invalid Payment Information.\n\nPlease ensure all information is provided.');
 			return;
 		}
 
-		alert('cardinfo:'
+		ToastsStore.success('cardinfo:'
 			+ '\n-cardNumber: ' + this.state.cardNumber
 			+ '\n-expiry: ' + this.state.cardExpiry
 			+ '\n-cvc: ' + this.state.cardCvc
@@ -731,11 +769,13 @@ class SetUpRecurringPayment extends React.Component {
 			total += currCharge;
 		}
 
-		alert('total: ' + total.toFixed(2));
+		//MODIFIED
+		ToastsStore.success('total: ' + total.toFixed(2));
 
 		// TODO: Set up Backend connection for recurring payment
 
-		alert('Recurring Payment successfully set up!'
+		//MODIFIED
+		ToastsStore.success('Recurring Payment successfully set up!'
 			  + '\n\nYou can cancel it at any time by: '
 			  + '\n1. Accessing the \'Set Up Recurring Payment\' menu'
 			  + '\n2. pressing \'Cancel Recurring Payment\'.');
@@ -752,7 +792,8 @@ class SetUpRecurringPayment extends React.Component {
 
 		// TODO: Set up Backend connection for recurring payment
 
-		alert('Recurring Payment successfully cancelled.'
+		//MODIFIED
+		ToastsStore.success('Recurring Payment successfully cancelled.'
 		+ '\n\nYou can set it back up at any time by: '
 		+ '\n1. Accessing the \'Set Up Recurring Payment\' menu'
 		+ '\n2. Enter in your payment information'
@@ -987,16 +1028,18 @@ class PropertyReview extends Component {
 	  }
 	
 	  handleSubmit(event) {
-		if(this.state.reviewing === '' || this.state.rating === 0 || this.state.review === '')
+		if(this.state.rating === 0 || this.state.review === '')
 		{
-			alert('WARNING: Invalid Review\n\nPlease fill out a full review before submitting.');
+			//MODIFIED
+			ToastsStore.error("WARNING: Invalid Review\n\nPlease fill out a full review before submitting.")
 			return;
 		}
 
 		// TODO: Send Review to Backend
 
-		alert('reviewing: ' + this.state.reviewing + '\nrating: ' + this.state.rating + '\nreview: ' + this.state.review);
-		alert('Review submitted!\n\nYou can update your review at any time by sending another review.');
+		//MODIFIED
+		ToastsStore.success('rating: ' + this.state.rating + '\nreview: ' + this.state.review);
+		ToastsStore.success('Review submitted!\n\nYou can update your review at any time by sending another review.');
 		event.preventDefault();
 	  }
 
@@ -1010,7 +1053,7 @@ class PropertyReview extends Component {
 			<div>
 				<h3> Rate My Property</h3>
 				<form class="rate-container" onSubmit={this.handleSubmit}>
-					<div style={{width: '100%'}}>
+					{/*<div style={{width: '100%'}}>
 						<FormControl required>
 							<InputLabel htmlFor="reviewing-native-required">Reviewing</InputLabel>
 							<Select
@@ -1029,7 +1072,7 @@ class PropertyReview extends Component {
 							</Select>
 							<FormHelperText>Required</FormHelperText>
 						</FormControl>
-					</div>
+							</div> */}
 					<div style={{width: '100%', fontSize: 70, textAlign: "center", marginBottom: '20px'}}>
 						<StarRatingComponent
 							class="rate-rating"
@@ -1130,7 +1173,8 @@ class ServiceRequests extends Component {
 				
 				{this.state.showPlaceServiceRequest ?  
 					<PlaceServiceRequest
-							closePopup={this.togglePopupPlaceServiceRequest.bind(this)}  
+							closePopup={this.togglePopupPlaceServiceRequest.bind(this)}
+							addTicket={this.props.addTicket.bind(this)}
 					/>  
 					: null  
 				}
@@ -1143,6 +1187,7 @@ class ServiceRequests extends Component {
 				{this.state.showPlaceComplaint ?  
 					<PlaceComplaintTicket
 							closePopup={this.togglePopupPlaceComplaint.bind(this)}  
+							addTicket={this.props.addTicket.bind(this)} 
 					/>  
 					: null  
 				}
@@ -1231,18 +1276,31 @@ class PlaceServiceRequest extends React.Component {
 		if(this.state.type === '' || this.state.priority === '' ||
 			this.state.title === '' || this.state.description === '')
 		{
-			alert('WARNING: Incomplete Ticket.\n\nPlease ensure all information is provided.');
+			ToastsStore.error('WARNING: Incomplete Ticket.\n\nPlease ensure all information is provided.');
 			return;
 		}
 
 		//TODO: Backend operation on successful ticket placement
 
-		alert('type: ' + this.state.type
+		//MODIFIED
+		ToastsStore.success('type: ' + this.state.type
 			  + '\npriority: ' + this.state.priority
 			  + '\ntitle: ' + this.state.title
 			  + '\ndescription: ' + this.state.description
 			)
-		alert('Request ticket successfully placed!');
+		ToastsStore.success('Request ticket successfully placed!');
+
+		//MODIFIED
+		this.props.addTicket({date: (("00" + (new Date().getMonth() + 1)).slice(-2) + "/" + 
+									("00" + new Date().getDate()).slice(-2) + "/" + 
+										new Date().getFullYear()),
+							type: this.state.type,
+							priority: this.state.priority,
+							title: this.state.title,
+							description: this.state.description,
+							status: 'Pending',
+							});
+
 		this.props.closePopup()
 		event.preventDefault();
 	  }
@@ -1372,17 +1430,31 @@ class PlaceComplaintTicket extends React.Component {
 	  handleSubmit(event) {
 		if(this.state.priority === '' || this.state.title === '' || this.state.description === '')
 		{
-			alert('WARNING: Incomplete Ticket.\n\nPlease ensure all information is provided.');
+			//MODIFIED
+			ToastsStore.error('WARNING: Incomplete Ticket.\n\nPlease ensure all information is provided.');
 			return;
 		}
 
 		//TODO: Backend operation on successful ticket placement
 
-		alert('priority: ' + this.state.priority
+		//MODIFIED
+		ToastsStore.success('priority: ' + this.state.priority
 			  + '\ntitle: ' + this.state.title
 			  + '\ndescription: ' + this.state.description
 			)
-		alert('Request ticket successfully placed!');
+		ToastsStore.success('Request ticket successfully placed!');
+
+		//MODIFIED
+		this.props.addTicket({date: (("00" + (new Date().getMonth() + 1)).slice(-2) + "/" + 
+									("00" + new Date().getDate()).slice(-2) + "/" + 
+										new Date().getFullYear()),
+							type: 'complaint',
+							priority: this.state.priority,
+							title: this.state.title,
+							description: this.state.description,
+							status: 'Pending',
+							});
+
 		this.props.closePopup()
 		event.preventDefault();
 	  }
@@ -1488,44 +1560,43 @@ class MyTickets extends React.Component {
 		});
 
 		return (
-
-			<div className='popup'>  
-				<div className='popup-panel'>
-					<div class="makeapayment-container">
-						<div class="popup-header">
-							<h3 class="popup-header-title">My Statements</h3>
-							<Button variant="outlined"
-								onClick={this.props.closePopup}>
-									Close
-							</Button>  
-						</div>
-						<br /><br />
-						<div class="tickets">
-							{tickets.map((data) =>
-								<div class="tickets-item">
-									<div class = "tickets-item-date">{data.date}</div>
-									<div class = "tickets-item-title">{data.title}</div>
-									<div class = "tickets-item-status">{data.status}</div>
-									{/* TODO: Set up connection to download PDF of statement */}
-									<div class = "tickets-item-button">
-										<button 
-											class="secondary-button"
-											onClick={this.togglePopupTicket.bind(this, data)}>
-											View Ticket
-										</button>
-										{this.state.showTicket ?  
-											<Ticket
-													ticket={this.state.ticketInfo}
-													closePopup={this.togglePopupTicket.bind(this, {})}  
-											/>  
-											: null  
-										}
-									</div>
+<div>
+				{this.state.showTicket ?
+					<Ticket
+					ticket={this.state.ticketInfo}
+					closePopup={this.togglePopupTicket.bind(this, {})}  
+					/> :
+					<div className='popup'>  
+						<div className='popup-panel'>
+							<div class="makeapayment-container">
+								<div class="popup-header">
+									<h3 class="popup-header-title">My Statements</h3>
+									<Button variant="outlined"
+										onClick={this.props.closePopup}>
+											Close
+									</Button>  
 								</div>
-							)}
+								<br /><br />
+								<div class="tickets">
+									{tickets.map((data) =>
+										<div class="tickets-item">
+											<div class = "tickets-item-date">{data.date}</div>
+											<div class = "tickets-item-title">{data.title}</div>
+											<div class = "tickets-item-status">{data.status}</div>
+											<div class = "tickets-item-button">
+												<button 
+													class="secondary-button"
+													onClick={this.togglePopupTicket.bind(this, data)}>
+													View Ticket
+												</button>
+											</div>
+										</div>
+									)}
+							</div>
 						</div>
 					</div>
-				</div>  
+				</div>
+				}
 			</div>  
 		);  
   }
