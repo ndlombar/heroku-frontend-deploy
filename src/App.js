@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   render() {
-    return <SpecificPosting />; //<ResidentPortal />;
+    return <PublicView />; //<ResidentPortal />;
     //   if (localStorage.getItem("loggedIn")) {
     //     return (
     //       <BrowserRouter>
